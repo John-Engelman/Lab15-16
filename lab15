@@ -1,0 +1,141 @@
+import info.gridworld.actor.ActorWorld;
+import info.gridworld.actor.Bug;
+import info.gridworld.actor.Rock;
+import info.gridworld.grid.Location;
+import java.awt.*;
+
+public class BoxBug extends Bug
+{
+    private int length;
+    private int numSteps;
+    public BoxBug ( Color c )
+    {
+       super ( c );  
+       length = 4;
+       numSteps = 0;
+    }
+    //pre: checks to see if it can move
+    //post:moves
+    public void act()
+    {
+        if ( canMove() && numSteps <= length)
+        {
+            move();
+            numSteps++;
+        }
+        else
+        {
+            turn(); turn();
+            numSteps = 0;
+        }
+    }
+}
+
+import info.gridworld.actor.ActorWorld;
+import info.gridworld.actor.Bug;
+import info.gridworld.actor.Rock;
+import info.gridworld.grid.Location;
+import java.awt.*;
+
+public class ZedBug extends Bug{
+    private int size;
+    private int numSteps;
+    private int side;
+    public ZedBug(Color c,int s){
+        super(c);
+        this.setDirection(90);
+        size=s;
+        numSteps=0;
+        side=0;
+    }
+    //pre:checks to see if it can move
+    //post:moves
+    public void act(){
+        if (side == 0)
+        {
+            if (canMove() && numSteps < size)
+            {
+                move();
+                numSteps++;
+            }
+            else if (numSteps == size)
+            {
+                side++;
+                numSteps=0;
+            }
+        }
+        else if (side==1)
+        {
+            turn();
+            turn();
+            turn();
+            side++;
+        }
+        else if (side == 2 && numSteps < size)
+        {
+            move();
+            numSteps++;
+        }
+        else if (side == 2 && numSteps == size)
+        {
+            turn();
+            turn();
+            turn();
+            turn();
+            turn();
+            side++;
+            numSteps=0;
+        }
+        else if (side==3 && numSteps < size)
+        {
+            move();
+            numSteps++;
+        }
+        else if (side==3 && numSteps == size)
+        {
+            turn();
+            turn();
+            turn();
+            turn();
+            numSteps=0;
+            side=0;
+        }
+    }
+}
+
+import info.gridworld.actor.ActorWorld;
+import info.gridworld.actor.Bug;
+import info.gridworld.actor.Rock;
+import info.gridworld.grid.Location;
+import java.awt.*;
+
+public class SpiralBug extends Bug{
+    private int length;
+    private int numSteps;
+    private int sidesMade;
+    public SpiralBug(Color c){
+        super(c);
+        length=9;
+        sidesMade=0;
+    }
+    //pre: checks to see if it can move
+    //post:moves
+    public void act(){
+        if (sidesMade == 2)
+        {
+            length--;
+            sidesMade=0;
+        }
+        if ( canMove() && numSteps <= length)
+        {
+            move();
+            numSteps++;
+        }
+        else
+        {
+            turn(); turn();
+            numSteps = 0;
+            sidesMade++;
+        } 
+    }
+}
